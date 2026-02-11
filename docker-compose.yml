@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: laravel-app
-    contain_container_name: laravel-app
+    container_name: laravel-app # ✅ FIXED
     restart: unless-stopped
     working_dir: /var/www
     volumes:
@@ -49,7 +49,7 @@ services:
     networks:
       - laravel
     ports:
-      - "33061:3306" # Mapped to 33061 on host to avoid conflict with local mysql
+      - "33061:3306"
 
   # Laravel Reverb (WebSocket Server)
   reverb:
@@ -68,9 +68,6 @@ services:
       - "8081:8081"
     depends_on:
       - app
-
-  # NPM (for building assets locally if needed, optional)
-  # You can usually run npm run build on host, or use a separate node container.
 
 networks:
   laravel:

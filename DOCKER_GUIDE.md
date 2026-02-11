@@ -1,6 +1,6 @@
 # Docker Setup Guide for Laravel Real-Time Chat App
 
-This guide explains how to install Docker and run the project both locally and on a production server.
+This guide explains how to install Docker and run the project (Laravel 12 + PHP 8.4) both locally and on a production server.
 
 ## Prerequisites
 
