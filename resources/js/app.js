@@ -5,11 +5,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
     const guestLinks = document.querySelectorAll('.guest-only');
     const authLinks = document.querySelectorAll('.auth-only');
+    const currentPath = window.location.pathname;
+
+    if (!token && currentPath === '/chat') {
+        window.location.href = '/login';
+        return;
+    }
+
+    // If logged in → block /login and /register
+    if (token && (currentPath === '/login' || currentPath === '/register')) {
+        window.location.href = '/chat';
+        return;
+    }
 
     if (token) {
         guestLinks.forEach(el => el.classList.add('d-none'));
         authLinks.forEach(el => el.classList.remove('d-none'));
-    } else {
+    
+        const currentUser = JSON.parse(localStorage.getItem('user'));
+    
+        if (currentUser) {
+            const usernameEl = document.getElementById('nav-username');
+            const avatarEl = document.getElementById('nav-avatar');
+    
+            if (usernameEl) {
+                usernameEl.innerText = currentUser.name;
+            }
+    
+            if (avatarEl) {
+                avatarEl.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=random`;
+            }
+        }
+    }
+     else {
         guestLinks.forEach(el => el.classList.remove('d-none'));
         authLinks.forEach(el => el.classList.add('d-none'));
     }
