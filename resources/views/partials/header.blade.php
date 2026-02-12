@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-1 shadow-sm">
     <div class="container">
         <a class="navbar-brand fw-bold" href="/">Chat App</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
