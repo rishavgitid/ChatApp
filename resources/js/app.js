@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // If logged in → block /login and /register
     if (token && (currentPath === '/login' || currentPath === '/register')) {
         window.location.href = '/chat';
         return;
@@ -59,27 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Global Notification Listener
     const currentUser = JSON.parse(localStorage.getItem('user'));
     if (currentUser && window.Echo) {
         window.Echo.private(`chat.${currentUser.id}`)
             .listen('MessageSent', (e) => {
-                console.log('Global Listener: Message received', e.message);
-
-                // Check if we are currently chatting with this user
                 if (window.activeChatUserId && window.activeChatUserId == e.message.sender_id) {
-                    return; // Do nothing, chat.blade.php handles it (marks read, appends)
+                    return; 
                 }
-
-                // Update Badge
                 const badge = document.getElementById('global-badge');
                 if (badge) {
                     let count = parseInt(badge.innerText || 0);
                     badge.innerText = count + 1;
                     badge.classList.remove('d-none');
                 }
-
-                // Show Toast
                 const toastEl = document.getElementById('liveToast');
                 const toastBody = document.getElementById('toast-body');
                 if (toastEl && toastBody) {
